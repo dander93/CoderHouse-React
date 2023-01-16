@@ -1,14 +1,14 @@
 import React from 'react';
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Link } from 'react-router-dom';
 
 function CartWidget({ iconName, count }) {
     return (
         <li className='nav-item'>
-            <a href='#' className='nav-link text-black-50'>
+            <Link to='cart' className='nav-link text-black-50'>
                 {count}
                 <FontAwesomeIcon icon={iconName} />
-            </a>
+            </Link>
         </li>
     );
 }

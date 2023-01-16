@@ -1,12 +1,14 @@
 import React from 'react'
+import ItemListContainerItemList from './ItemListContainerItemList/ItemListContainerItemList';
 import UserGreeting from './UserGreeting/UserGreeting';
 
 function ItemListContainer({ greeting }) {
     return (
         <>
-            <div className='container-fluid d-flex justify-content-center'>
+            <section className='container-fluid d-flex flex-column justify-content-center align-items-center'>
                 <UserGreeting greeting={greeting} />
-            </div>
+                <ItemListContainerItemList />
+            </section>
         </>
     );
 }

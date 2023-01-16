@@ -4,13 +4,13 @@
 
 @media (min-width:769px) {
     .card {
-        height: 350px;
-        max-width: 250px;
+        height: 300px;
+        width: 250px;
         transition: transform .5s;
 
         .card-img-top {
-            min-width: 248px;
-            min-height: 139px;
+            width: 350px;
+            height: 250px;
         }
 
         &:hover {

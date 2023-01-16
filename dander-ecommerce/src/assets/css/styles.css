@@ -49,6 +49,9 @@
  *  Modules - Custom - Mixins
  * */
 /*
+ *  Modules - Custom - ItemDetail
+ * */
+/*
 *  Modules - Bootstrap - Header
 * */
 .navbar {
@@ -81,7 +84,7 @@
  **/
 .card {
   max-width: 300px;
-  height: 500px;
+  height: 500px !important;
   color: var(--darken-color-50) !important; }
   .card .card-img-top {
     max-width: 100%;
@@ -189,12 +192,12 @@
  * */
 @media (min-width: 769px) {
   .card {
-    height: 350px;
-    max-width: 250px;
+    height: 300px;
+    width: 250px;
     transition: transform .5s; }
     .card .card-img-top {
-      min-width: 248px;
-      min-height: 139px; }
+      width: 350px;
+      height: 250px; }
     .card:hover {
       transform: translateY(-10px);
       box-shadow: 0 0 0.5rem var(--light-color) !important; } }
