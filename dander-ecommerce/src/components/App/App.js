@@ -16,7 +16,7 @@ function App() {
 
   const [categorys, setCategorys] = useState([]);
   const [isCategoryLoading, setIsCategoryLoading] = useState(true);
-  const { loadCategorys, categorysLoaded, getLoadedCategorys } = useContext(categorysContext);
+  const { loadCategorys, categorysLoaded } = useContext(categorysContext);
 
   const loadMenu = async () => {
     setCategorys(await loadCategorys())

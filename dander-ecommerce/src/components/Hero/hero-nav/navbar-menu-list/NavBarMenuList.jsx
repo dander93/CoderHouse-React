@@ -3,7 +3,6 @@ import NavBarMenuListItem from '../navbar-menu-list-item/NavBarMenuListItem';
 import CartWidget from '../cart-widget/CartWidget';
 
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
-// import getCategorys from '../../../../services/categoryServices';
 import { categorysContext } from '../../../Context/CategoryContext';
 
 function NavBarMenuList() {
@@ -13,13 +12,6 @@ function NavBarMenuList() {
     const [menuItems, setmenuItems] = useState(getLoadedCategorys());
 
     useEffect(() => {
-        // getCategorys()
-        // .then(categorys => {
-        //     setmenuItems( categorys.map(category => {
-        //         return ({ "text": category, "target": category })
-        //     }))
-        // })
-
         if(isCategoryLoaded){
             setmenuItems(getLoadedCategorys())
         }
