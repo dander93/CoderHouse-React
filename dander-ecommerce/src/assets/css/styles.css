@@ -149,6 +149,18 @@
     transform: rotateX(360deg);
     filter: invert(80%) sepia(88%); } }
 
+@keyframes rotate {
+  0% {
+    transform: rotate(0); }
+  100% {
+    transform: rotate(360deg); } }
+
+@keyframes loading-text {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0; } }
+
 .navbar-brand .logo-image {
   width: 90px;
   height: 56px; }
@@ -159,6 +171,11 @@
 .navbar-brand:hover p {
   text-shadow: 1px 1px 3px var(--main-color);
   border-bottom: 1px dotted var(--main-color); }
+
+.nav-item {
+  min-height: 42px; }
+  .nav-item .svg-inline--fa {
+    height: 1.5rem; }
 
 /*
  *  Modules - Custom - Footer
@@ -211,3 +228,23 @@
   .footer {
     grid-template-columns: 1fr;
     grid-template-areas: "contactSection"; } }
+
+/*
+ *  Modules - Custom - Loader
+ * */
+.loading p {
+  animation: loading-text 2s infinite alternate; }
+
+.loader {
+  position: relative;
+  width: 100px;
+  height: 100px; }
+  .loader:before, .loader:after {
+    content: '';
+    border-radius: 50%;
+    position: absolute;
+    inset: 0;
+    box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.3) inset; }
+  .loader:after {
+    box-shadow: 0 2px 0 var(--main-color) inset;
+    animation: rotate 3s linear infinite; }

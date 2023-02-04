@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { getAllItems, getItemsByCategory } from '../../../services/itemServices'
+import Loader from '../../Loader/Loader';
 import ItemListContainerItemListItem from '../ItemListContainerItemListItem/ItemListContainerItemListItem';
 
 function ItemListContainerItemList() {
     const [items, setItems] = useState([])
+    const [isItemsLoading, setIsItemsLoading] = useState(true);
 
     let { category } = useParams();
 
@@ -13,16 +15,26 @@ function ItemListContainerItemList() {
             getAllItems()
                 .then(items => {
                     setItems(items)
+                    setIsItemsLoading(false)
                 });
         }
-        else{
+        else {
             getItemsByCategory(category)
-            .then(items => {
-                setItems(items)
-            });
+                .then(items => {
+                    setItems(items)
+                    setIsItemsLoading(false)
+                });
         }
-    }, [category])
+    }, [category, isItemsLoading])
 
+
+    if (isItemsLoading) {
+        return (
+            <>
+                <Loader />
+            </>
+        )
+    }
 
     return (
         <>

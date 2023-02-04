@@ -1,6 +1,6 @@
 import categorys from "../data/categorys";
 
-const TIME_TO_RESOLVE_RESPONSE_IN_MS = 0;
+const TIME_TO_RESOLVE_RESPONSE_IN_MS = 2000;
 
 export default function getCategorys() {
     return new Promise((resolve, reject) => {

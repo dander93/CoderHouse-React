@@ -1,10 +1,10 @@
 import React from 'react';
 import NavBarMenuList from './navbar-menu-list/NavBarMenuList';
 
-function NavBar({cartCounter}) {
+function NavBar() {
     return (
         <nav id='nav-main-menu' className='navbar navbar-expand'>
-            <NavBarMenuList cartCounter={cartCounter} />
+            <NavBarMenuList />
         </nav>
     );
 }

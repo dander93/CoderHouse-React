@@ -4,9 +4,14 @@ import ReactDOM from 'react-dom/client';
 import './assets/css/styles.css';
 import "bootstrap/dist/css/bootstrap.css"
 
-import * as bootstrap from 'bootstrap';
-
 import App from './components/App/App';
+import CategoryContext from './components/Context/CategoryContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+root.render(
+    <>
+        <CategoryContext>
+            <App />
+        </CategoryContext>
+    </>
+);

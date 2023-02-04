@@ -1,22 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import NavBarMenuListItem from '../navbar-menu-list-item/NavBarMenuListItem';
 import CartWidget from '../cart-widget/CartWidget';
 
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
-import getCategorys from '../../../../services/categoryServices';
+// import getCategorys from '../../../../services/categoryServices';
+import { categorysContext } from '../../../Context/CategoryContext';
 
-function NavBarMenuList({cartCounter}) {
+function NavBarMenuList() {
 
-    const [menuItems, setmenuItems] = useState([]);
+    const [isCategoryLoaded, setIsCategoryLoaded] = useState(false);
+    const { getLoadedCategorys, categorysLoaded } = useContext(categorysContext);
+    const [menuItems, setmenuItems] = useState(getLoadedCategorys());
 
     useEffect(() => {
-        getCategorys()
-        .then(categorys => {
-            setmenuItems( categorys.map(category => {
-                return ({ "text": category, "target": category })
-            }))
-        })
-    }, [menuItems])
+        // getCategorys()
+        // .then(categorys => {
+        //     setmenuItems( categorys.map(category => {
+        //         return ({ "text": category, "target": category })
+        //     }))
+        // })
+
+        if(isCategoryLoaded){
+            setmenuItems(getLoadedCategorys())
+        }
+        setIsCategoryLoaded(categorysLoaded())
+    });
 
 
     return (
@@ -24,10 +32,10 @@ function NavBarMenuList({cartCounter}) {
             {
                 menuItems.map(
                     (menuItem, index) =>
-                        <NavBarMenuListItem target={menuItem.target} text={menuItem.text} index={`menu-${index.toString()}`} key={`menu-${index.toString()}`} />)
+                        <NavBarMenuListItem target={menuItem} text={menuItem} index={`menu-${index.toString()}`} key={`menu-${index.toString()}`} />)
             }
 
-            <CartWidget iconName={faCartShopping} target="cart" count={cartCounter} key={`menu-cart`} />
+            <CartWidget iconName={faCartShopping} target="cart" key={`menu-cart`} />
         </ul>
     );
 }
