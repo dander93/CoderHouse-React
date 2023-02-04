@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import CartContainer from '../Cart/CartContainer';
 import CartContext from '../Context/CartContext';
-import CategoryContext, { categorysContext } from '../Context/CategoryContext';
+import { categorysContext } from '../Context/CategoryContext';
 import Footer from '../Footer/Footer';
 import Hero from '../Hero/Hero';
 import ItemDetailContainer from '../ItemDetailContainer/ItemDetailContainer';
@@ -32,7 +32,7 @@ function App() {
     return (
       <>
         <MainContainer>
-          <div className='min-vh-100 justify-content-center d-flex align-items-center'>
+          <div className='min-vh-100 d-flex justify-content-center align-items-center'>
             <Loader />
           </div>
         </MainContainer>
