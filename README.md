@@ -11,7 +11,7 @@ Este es un proyecto con fines didacticos sobre un ecommerce
 
 **FrontEnd:** React, Context, Bootstrap
 
-## Lessons Learned  
+## Tecnologías aprendidas 
 
 Con este proyecto aprendí a utilizar React, Context y Firebase
 
