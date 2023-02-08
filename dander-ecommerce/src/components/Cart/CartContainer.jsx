@@ -35,12 +35,12 @@ function CartContainer() {
 
     return (
         <>
-            <section className='container-fluid mt-3'>
+            <section className='container-fluid mt-3 col-9'>
                 <CartTable handleClearCart={handleCLearCartEvent} >
                     {
                         itemsInCart.map(item =>
                             <>
-                                <CartTableItemRow titulo={item.title} precio={item.price} cantidad={item.count} key={item.id}>
+                                <CartTableItemRow title={item.title} price={item.price} quantity={item.count} discount={item.discount} key={item.id}>
                                     <ActionButton callback={() => handleRemoveItemFromCartButton(item.id)} text="Borrar" className="btn btn-sm btn-danger border border-dark" />
                                 </CartTableItemRow>
                             </>

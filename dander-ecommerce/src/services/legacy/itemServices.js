@@ -1,6 +1,6 @@
-import products from '../data/products'
+import products from '../../data/products'
 
-const TIME_TO_RESOLVE_RESPONSE_IN_MS = 1000;
+const TIME_TO_RESOLVE_RESPONSE_IN_MS = 0;
 
 export function getAllItems() {
     return new Promise((resolve, reject) => {

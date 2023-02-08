@@ -1,31 +1,30 @@
 import React, { createContext, useState } from 'react';
-import getCategorys from '../../services/categoryServices';
+import { getCategorys } from '../../services/categorys.DBService';
 
-export const categorysContext = createContext([])
+const categorysContext = createContext([]);
 
-export default function CategoryContext({ children }) {
+function CategoryContext({ children }) {
 
-    const [categorys, setCategorys] = useState([])
-    const [isCategoryLoaded, setIsCategoryLoaded] = useState(false)
-
-
-    const getLoadedCategorys = () => {
-        return categorys;
-    }
+    const [categorys, setCategorys] = useState([]);
 
     const loadCategorys = async () => {
-        let data = await getCategorys()
-        setCategorys(data);
-        setIsCategoryLoaded(true);
-        return data
-    }
+        const categorys = await getCategorys();
+        setCategorys(categorys);
+        return categorys;
+    };
 
-    const categorysLoaded = () => isCategoryLoaded;
+    const isCategorysLoaded = () => categorys.length > 0;
+
+    const getLoadedCategorys = () => categorys;
+
+    const getCategoryIDByName = category => categorys.find(cat => cat.name = category).id
+
 
     const exports = {
-        getLoadedCategorys,
         loadCategorys,
-        categorysLoaded
+        isCategorysLoaded,
+        getLoadedCategorys,
+        getCategoryIDByName
     }
 
     return (
@@ -35,4 +34,9 @@ export default function CategoryContext({ children }) {
             </categorysContext.Provider>
         </>
     );
+}
+
+export {
+    categorysContext,
+    CategoryContext as default
 }

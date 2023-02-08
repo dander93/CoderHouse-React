@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
-import { getAllItems, getItemsByCategory } from '../../../services/itemServices'
+import { getAllItems, getItemsByCategory } from '../../../services/products.DBService';
 import Loader from '../../Loader/Loader';
+import NotFound from '../../NotFound/NotFound';
 import ItemListContainerItemListItem from '../ItemListContainerItemListItem/ItemListContainerItemListItem';
 
 function ItemListContainerItemList() {
@@ -10,21 +11,24 @@ function ItemListContainerItemList() {
 
     let { category } = useParams();
 
-    useEffect(() => {
+    const loadItems = () => {
         if (!category) {
             getAllItems()
-                .then(items => {
-                    setItems(items)
+                .then(result => {
+                    setItems(result)
                     setIsItemsLoading(false)
-                });
-        }
-        else {
+                })
+        } else {
             getItemsByCategory(category)
-                .then(items => {
-                    setItems(items)
-                    setIsItemsLoading(false)
-                });
+                .then(result => {
+                    setItems(result);
+                    setIsItemsLoading(false);
+                })
         }
+    }
+
+    useEffect(() => {
+        loadItems();
     }, [category, isItemsLoading])
 
 
@@ -32,6 +36,15 @@ function ItemListContainerItemList() {
         return (
             <>
                 <Loader />
+            </>
+        )
+    }
+
+
+    if (items.length === 0) {
+        return (
+            <>
+                <NotFound />
             </>
         )
     }
@@ -49,6 +62,7 @@ function ItemListContainerItemList() {
                             price={item.price}
                             title={item.title}
                             category={item.category}
+                            discount={item.discount}
                         />)
                 }
             </div>

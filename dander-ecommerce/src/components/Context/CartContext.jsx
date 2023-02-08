@@ -7,6 +7,7 @@ export default function CartContext({ children }) {
     let [cart, setCart] = useState([])
 
     const handleAddToCart = (element) => {
+        
         let found = cart.findIndex(item => item.id === element.id)
 
         if (found > -1) {
@@ -21,7 +22,6 @@ export default function CartContext({ children }) {
     }
 
     const handleRemoveFromCart = (id) => {
-        console.log(id)
         let found = cart.findIndex(item => item.id === id)
 
         if (found > -1) {
@@ -37,7 +37,8 @@ export default function CartContext({ children }) {
 
     const handleTotalItemsInCart = () => cart.reduce((sum, item) => sum + item.count, 0);
 
-    const handleTotalAmountInCart = () => cart.length ? cart.reduce((sum, item) => sum + (item.count * item.price), 0) : 0;
+    const handleTotalAmountInCart = () => cart.length ? cart.reduce((sum, item) => sum + (item.count * (item.price - (item.price * item.discount))), 0) : 0;
+    const handleTotalAmountWithoutDiscountInCart = () => cart.length ? cart.reduce((sum, item) => sum + (item.price * item.count), 0) : 0;
 
     const handleGetItemsInCart = () => cart;
 
@@ -47,7 +48,8 @@ export default function CartContext({ children }) {
         handleRemoveFromCart,
         handleTotalItemsInCart,
         handleTotalAmountInCart,
-        handleGetItemsInCart
+        handleGetItemsInCart,
+        handleTotalAmountWithoutDiscountInCart
     }
 
     return (

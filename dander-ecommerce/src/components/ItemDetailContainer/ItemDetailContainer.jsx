@@ -1,6 +1,5 @@
 import { React, useState, useEffect, useContext } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
-import { getItemByCategoryAndID } from '../../services/itemServices';
 import ActionButton from '../ButtonContainer/ActionButton/ActionButton';
 import ButtonContainer from '../ButtonContainer/ButtonContainer';
 import { toast } from 'react-toastify';
@@ -8,18 +7,22 @@ import { cartContext } from '../Context/CartContext';
 import NotFound from '../NotFound/NotFound';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../Loader/Loader';
+import { getItemByID } from '../../services/products.DBService';
+import { textToCurrency, textToPercentual } from '../../services/textHelperService';
 
 function ItemDetailContainer() {
 
     const { handleAddToCart } = useContext(cartContext);
+
     const params = useParams();
     const navigate = useNavigate();
+
+    const [isItemLoading, setIsItemLoading] = useState(true);
     const [itemCounter, setItemCounter] = useState(1);
     const [item, setItem] = useState();
-    const [isItemLoading, setIsItemLoading] = useState(true);
 
     useEffect(() => {
-        getItemByCategoryAndID(params.itemID, params.category)
+        getItemByID(params.itemID, params.category)
             .then((itemFound) => {
                 setItem(itemFound)
                 setIsItemLoading(false)
@@ -44,7 +47,7 @@ function ItemDetailContainer() {
 
     const handleCartSaveButton = () => {
         if (itemCounter > 0) {
-
+            
             item.count = itemCounter;
             handleAddToCart({ ...item })
 
@@ -71,9 +74,27 @@ function ItemDetailContainer() {
                             {/* <Link to={`/${params.category}`} ></Link> */}
                             <ActionButton callback={handleGoBack} text="" className="btn btn-close" />
                         </header>
-                        <img src={item.image} alt={item.description} className="border border-dark rounded-1 col-6 align-self-center" />
+
+                        <img src={item.image} alt={item.description} className="border border-dark rounded-1 col-4 align-self-center" />
+
                         <p className='my-2 p-2 border border-dark rounded-1'>{item.description}</p>
-                        <h4 className='text-end text-shadow-dark'>Precio: {item.price}$</h4>
+                        {
+                            item.discount &&
+                            <>
+                                <h4 className='text-end'>
+                                    <p className='badge text-bg-success text-light'>
+                                        Descuento: {textToPercentual(item.discount)}
+                                        <br />
+                                        Precio anterior:
+                                        <span className='text-danger text-decoration-line-through'>
+                                            {textToCurrency(item.price)}
+                                        </span>
+                                    </p>
+                                </h4>
+                            </>
+                        }
+
+                        <h4 className='text-end text-shadow-dark'>Precio: {textToCurrency(item.price - (item.price * item.discount))}</h4>
 
                         <ButtonContainer
                             addButtonText="Agregar"

@@ -1,22 +1,18 @@
 import React, { useContext } from 'react'
+import { Link } from 'react-router-dom';
 import { textToCurrency } from '../../services/textHelperService'
 import ActionButton from '../ButtonContainer/ActionButton/ActionButton'
 import { cartContext } from '../Context/CartContext'
 
 function CartTable({ children, handleClearCart }) {
 
-
-    const { handleTotalAmountInCart } = useContext(cartContext);
+    const { handleTotalAmountInCart,handleTotalAmountWithoutDiscountInCart } = useContext(cartContext);
 
     const handleRemoveAllItemsFromCartButton = () => handleClearCart();
 
-    const handleCreatePaymentOperationButton = () => {
-        console.log("comprado papu")
-    }
-
     return (
         <>
-            <table className='table table-sm table-striped'>
+            <table className='table table-sm table-striped border border-dark shadow'>
                 <thead>
                     <tr className="text-center">
                         <th className="text-start">Titulo</th>
@@ -32,6 +28,13 @@ function CartTable({ children, handleClearCart }) {
                     <tr>
                         <td colSpan={4} className="text-end">
                             <p className='mx-2 my-0'>
+                                Subtotal: {textToCurrency(handleTotalAmountWithoutDiscountInCart())}
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan={4} className="text-end">
+                            <p className='mx-2 my-0'>
                                 Total: {textToCurrency(handleTotalAmountInCart())}
                             </p>
                         </td>
@@ -41,9 +44,11 @@ function CartTable({ children, handleClearCart }) {
 
             <br />
 
-            <div className='fixed-bottom col-11 mx-auto  mb-2 p-2 bg-opacity-75 bg-dark border border-dark shadow rounded'>
-                <ActionButton text="Limpiar carrito" callback={handleRemoveAllItemsFromCartButton} className="btn btn-danger col-2 mx-1 border border-dark" />
-                <ActionButton text="Finalizar compra" callback={handleCreatePaymentOperationButton} className="btn btn-success col-2 border border-dark" />
+            <div className='fixed-bottom col-11 mx-auto mb-2 p-2 bg-opacity-75 bg-dark border border-dark shadow rounded'>
+                <div className='d-flex flex-row justify-content-center'>
+                    <ActionButton text="Limpiar carrito" callback={handleRemoveAllItemsFromCartButton} className="btn btn-danger col-2 mx-1 border border-dark" />
+                    <Link to="/cart/checkout" className="btn btn-success col-2 border border-dark">Finalizar Compra</Link>
+                </div>
             </div>
         </>
     )

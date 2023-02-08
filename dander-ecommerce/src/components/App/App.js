@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import CartContainer from '../Cart/CartContainer';
+import CheckoutCart from '../Cart/FormCheckout/CheckoutCart';
 import CartContext from '../Context/CartContext';
 import { categorysContext } from '../Context/CategoryContext';
 import Footer from '../Footer/Footer';
@@ -14,19 +15,35 @@ import NotFound from '../NotFound/NotFound';
 
 function App() {
 
-  const [categorys, setCategorys] = useState([]);
+  const [isCategorysPetitionSend, setIsCategorysPetitionSend] = useState(false);
   const [isCategoryLoading, setIsCategoryLoading] = useState(true);
-  const { loadCategorys, categorysLoaded } = useContext(categorysContext);
 
-  const loadMenu = async () => {
-    setCategorys(await loadCategorys())
-    setIsCategoryLoading(!categorysLoaded())
+  const [categorys, setCategorys] = useState([]);
+  const { loadCategorys } = useContext(categorysContext);
+
+  const loadMenu = () => {
+    if (!isCategorysPetitionSend) {
+      setIsCategorysPetitionSend(true)
+
+      loadCategorys()
+        .then((res) => {
+          setCategorys(res)
+          setIsCategoryLoading(false)
+        })
+        .catch(console.error);
+
+    }
   }
 
   useEffect(() => {
+
     loadMenu();
+
   }, [categorys, isCategoryLoading])
 
+  const handleOnEnter = (transition) => {
+    console.log(transition)
+  } 
 
   if (isCategoryLoading) {
     return (
@@ -51,6 +68,7 @@ function App() {
             <Routes>
               <Route path="/" element={<ItemListContainer greeting="Bienvenido a Dander-Ecommerce" />} />
               <Route path="/cart" element={<CartContainer />} />
+              <Route path="/cart/checkout" element={<CheckoutCart />} onEnter={handleOnEnter}/>
               {
                 categorys.map(
                   (category, index) =>

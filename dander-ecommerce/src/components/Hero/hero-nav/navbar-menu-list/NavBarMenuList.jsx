@@ -7,15 +7,16 @@ import { categorysContext } from '../../../Context/CategoryContext';
 
 function NavBarMenuList() {
 
+    const { getLoadedCategorys, isCategorysLoaded, getCategoryIDByName } = useContext(categorysContext);
+
     const [isCategoryLoaded, setIsCategoryLoaded] = useState(false);
-    const { getLoadedCategorys, categorysLoaded } = useContext(categorysContext);
     const [menuItems, setmenuItems] = useState(getLoadedCategorys());
 
     useEffect(() => {
-        if(isCategoryLoaded){
+        if (isCategoryLoaded) {
             setmenuItems(getLoadedCategorys())
         }
-        setIsCategoryLoaded(categorysLoaded())
+        setIsCategoryLoaded(isCategorysLoaded())
     });
 
 
@@ -24,7 +25,7 @@ function NavBarMenuList() {
             {
                 menuItems.map(
                     (menuItem, index) =>
-                        <NavBarMenuListItem target={menuItem} text={menuItem} index={`menu-${index.toString()}`} key={`menu-${index.toString()}`} />)
+                        <NavBarMenuListItem target={menuItem.name} text={menuItem.name} index={`menu-${index.toString()}`} key={`menu-${index.toString()}`} />)
             }
 
             <CartWidget iconName={faCartShopping} target="cart" key={`menu-cart`} />
