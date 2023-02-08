@@ -11,6 +11,16 @@ Este es un proyecto con fines didacticos sobre un ecommerce
 
 **FrontEnd:** React, Context, Bootstrap
 
+
+## Dependencias
+
+* react-toastify: Utilizado para mostrar toast en determinadas situaciones(como al agregar al carrito)
+* nodemon: Utilizado para trabajar con Sass y tenerlo observando los cambios en los modulos
+* node-sass: Compilacion de archivos Sass
+* fontawesome-free: Iconografía
+* firebase: Conexion a Firebase
+* Bootstrap: Maquetado y diseño
+
 ## Tecnologías aprendidas 
 
 Con este proyecto aprendí a utilizar React, Context y Firebase
@@ -40,3 +50,4 @@ Inicia el servidor
 ~~~bash  
 npm run start
 ~~~
+
